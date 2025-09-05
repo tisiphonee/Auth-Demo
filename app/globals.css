@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Custom color tokens */
+    --color-bg: #f7f9fd;
+    --color-card: #ffffff;
+    --color-primary: #3b82f6;
+    --color-primary-gradient: #6366f1;
+    --color-success: #10b981;
+    --color-danger: #ef4444;
+    
+    /* Shadcn color system */
+    --background: 247 249 253;
+    --foreground: 15 23 42;
+    --card: 255 255 255;
+    --card-foreground: 15 23 42;
+    --popover: 255 255 255;
+    --popover-foreground: 15 23 42;
+    --primary: 59 130 246;
+    --primary-foreground: 255 255 255;
+    --secondary: 241 245 249;
+    --secondary-foreground: 15 23 42;
+    --muted: 241 245 249;
+    --muted-foreground: 100 116 139;
+    --accent: 241 245 249;
+    --accent-foreground: 15 23 42;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 59 130 246;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --color-bg: #0b1220;
+    --color-card: #0f172a;
+    --color-primary: #4f46e5;
+    --color-primary-gradient: #0ea5e9;
+    --color-success: #10b981;
+    --color-danger: #ef4444;
+    
+    --background: 11 18 32;
+    --foreground: 226 232 240;
+    --card: 15 23 42;
+    --card-foreground: 226 232 240;
+    --popover: 15 23 42;
+    --popover-foreground: 226 232 240;
+    --primary: 79 70 229;
+    --primary-foreground: 255 255 255;
+    --secondary: 30 41 59;
+    --secondary-foreground: 226 232 240;
+    --muted: 30 41 59;
+    --muted-foreground: 148 163 184;
+    --accent: 30 41 59;
+    --accent-foreground: 226 232 240;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --border: 30 41 59;
+    --input: 30 41 59;
+    --ring: 129 140 248;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    background: radial-gradient(ellipse at top right, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom left, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+                var(--color-bg);
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+  
+  /* Typography scale */
+  h1 {
+    @apply text-[32px] leading-[40px] font-extrabold tracking-tight;
+  }
+  
+  h2 {
+    @apply text-[20px] leading-[28px] font-semibold;
+  }
+  
+  /* Tabular numbers for phone numbers */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  /* Focus-visible styles for better accessibility */
+  .focus-visible {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
+  }
+  
+  /* RTL-specific utilities */
+  .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
+  
+  .space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+    margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+    margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+  
+  /* Glass effect for cards */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-xl border border-black/5;
+    box-shadow: 0 10px 30px -10px rgba(2, 6, 23, 0.25);
+  }
+  
+  .dark .glass-card {
+    @apply bg-slate-800/80 border-white/10;
+  }
+  
+  /* Gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-gradient) 100%);
+  }
+  
+  .dark .gradient-primary {
+    background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+  }
+  
+  /* Sheen animation for buttons */
+  .sheen {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .sheen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 2s linear;
+  }
+  
+  .sheen:hover::before {
+    left: 100%;
+  }
+  
+  /* Page mount animation */
+  .page-enter {
+    animation: pageEnter 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  
+  @keyframes pageEnter {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Card hover animation */
+  .card-hover {
+    transition: all 200ms ease;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px -10px rgba(2, 6, 23, 0.3);
+  }
+  
+  /* Focus ring animation */
+  .focus-ring {
+    transition: all 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Scrollbar styling */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full;
+  }
+  
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-slate-600;
+  }
+}
