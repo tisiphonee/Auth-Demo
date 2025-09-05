@@ -35,6 +35,9 @@ test.describe('Authentication Flow', () => {
   });
 
   test('should complete full authentication flow', async ({ page }) => {
+    // Set viewport to mobile size to ensure mobile layout is visible
+    await page.setViewportSize({ width: 375, height: 667 });
+    
     // Start at login page
     await page.goto('/login');
     await expect(page).toHaveURL('/login');
@@ -62,19 +65,22 @@ test.describe('Authentication Flow', () => {
 
     // Check dashboard elements
     await expect(page.getByRole('heading', { name: 'داشبورد' })).toBeVisible();
-    await expect(page.getByText('خوش آمدید، John Doe!')).toBeVisible();
-    await expect(page.getByText('john.doe@example.com').first()).toBeVisible();
-    await expect(page.getByText('+989123456789').first()).toBeVisible();
-    await expect(page.getByRole('button', { name: 'خروج' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'خوش آمدید، John Doe!' })).toBeVisible();
+    await expect(page.getByTestId('welcome-email-mobile').getByText('john.doe@example.com')).toBeVisible();
+    await expect(page.getByTestId('welcome-phone-mobile').getByText('+989123456789')).toBeVisible();
+    await expect(page.getByTestId('logout-button')).toBeVisible();
 
     // Test logout
-    await page.getByRole('button', { name: 'خروج' }).click();
+    await page.getByTestId('logout-button').click();
     
     // Should redirect back to login
     await expect(page).toHaveURL('/login');
   });
 
   test('should handle different phone number formats', async ({ page }) => {
+    // Set viewport to mobile size to ensure mobile layout is visible
+    await page.setViewportSize({ width: 375, height: 667 });
+    
     const formats = [
       { input: '09123456789', expected: '+989123456789' },
       { input: '+989123456789', expected: '+989123456789' },
@@ -91,11 +97,11 @@ test.describe('Authentication Flow', () => {
       // Should redirect to dashboard
       await expect(page).toHaveURL('/dashboard');
       
-      // Check that phone is normalized correctly (check the first occurrence in welcome section)
-      await expect(page.getByText(format.expected).first()).toBeVisible();
+      // Check that phone is normalized correctly (check in the welcome section)
+      await expect(page.getByTestId('welcome-phone-mobile').getByText(format.expected)).toBeVisible();
 
       // Logout for next iteration
-      await page.getByRole('button', { name: 'خروج' }).click();
+      await page.getByTestId('logout-button').click();
     }
   });
 
@@ -165,7 +171,7 @@ test.describe('Authentication Flow', () => {
     expect(userData).toBeTruthy();
 
     // Logout
-    await page.getByRole('button', { name: 'خروج' }).click();
+    await page.getByTestId('logout-button').click();
     await expect(page).toHaveURL('/login');
 
     // Check that user data is cleared

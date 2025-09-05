@@ -70,6 +70,8 @@ export function DashboardClient() {
                 variant="outline"
                 onClick={handleLogout}
                 className="flex items-center space-x-1 sm:space-x-2 space-x-reverse bg-white/50 hover:bg-white/80 border-white/20 text-slate-700 hover:text-slate-900 transition-all duration-200 focus-visible rounded-xl text-xs sm:text-sm px-2 sm:px-3 py-1.5 sm:py-2"
+                data-testid="logout-button"
+                aria-label="خروج"
               >
                 <LogOut className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span className="hidden sm:inline">خروج</span>
@@ -110,7 +112,7 @@ export function DashboardClient() {
               {/* User Info */}
               <div className="space-y-4 w-full">
                 <div>
-                  <h2 className="text-2xl sm:text-[32px] leading-tight font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+                  <h2 className="text-2xl leading-tight font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
                     خوش آمدید، {displayName}!
                   </h2>
                 </div>
@@ -118,13 +120,13 @@ export function DashboardClient() {
                 <div className="flex flex-col gap-4 text-sm">
                   <div className="flex items-center justify-center gap-2.5 text-slate-600 dark:text-slate-400">
                     <Mail className="w-4 h-4 text-slate-400 dark:text-slate-500 select-none" />
-                    <span dir="ltr" className="text-slate-700 dark:text-slate-300 text-sm break-words select-text">
+                    <span dir="ltr" className="text-slate-700 dark:text-slate-300 text-sm break-words select-text" data-testid="welcome-email-mobile">
                       {user.email}
                     </span>
                   </div>
                   <div className="flex items-center justify-center gap-2.5 text-slate-600 dark:text-slate-400">
                     <Phone className="w-4 h-4 text-slate-400 dark:text-slate-500 select-none" />
-                    <span dir="ltr" className="text-slate-700 dark:text-slate-300 text-sm tracking-wide font-mono select-all">
+                    <span dir="ltr" className="text-slate-700 dark:text-slate-300 text-sm tracking-wide font-mono select-all" data-testid="welcome-phone-mobile">
                       {user.phoneNormalized}
                     </span>
                   </div>
@@ -166,13 +168,13 @@ export function DashboardClient() {
                 <div className="flex flex-wrap gap-6 text-sm">
                   <div className="flex items-center gap-2.5 text-slate-600 dark:text-slate-400">
                     <Mail className="w-4 h-4 text-slate-400 dark:text-slate-500 select-none" />
-                    <span dir="ltr" className="text-slate-700 dark:text-slate-300 text-sm break-words select-text">
+                    <span dir="ltr" className="text-slate-700 dark:text-slate-300 text-sm break-words select-text" data-testid="welcome-email-desktop">
                       {user.email}
                     </span>
                   </div>
                   <div className="flex items-center gap-2.5 text-slate-600 dark:text-slate-400">
                     <Phone className="w-4 h-4 text-slate-400 dark:text-slate-500 select-none" />
-                    <span dir="ltr" className="text-slate-700 dark:text-slate-300 text-sm tracking-wide font-mono select-all">
+                    <span dir="ltr" className="text-slate-700 dark:text-slate-300 text-sm tracking-wide font-mono select-all" data-testid="welcome-phone-desktop">
                       {user.phoneNormalized}
                     </span>
                   </div>
